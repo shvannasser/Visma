@@ -1,16 +1,4 @@
 ﻿
-
-
-
-
-.btn-secondary {
-    background-color: #007bff;
-    border -color: #007bff;
-    color: #fff;
-}
-
-.btn-secondary:hover,
-.btn-secondary:focus {
-    background-color: #0056b3;
-    border-color: #0056b3;
+.btn-primary {
+    border-radius: 2rem;
 }
