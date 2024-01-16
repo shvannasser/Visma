@@ -3,11 +3,20 @@ using VismasLoanCalculator.Models;
 
 namespace VismasLoanCalculator.Services
 {
-    public class AnnuityLoanCalculator : ILoanCalculator
+    public class AnnuityLoanCalculatorService : ILoanCalculator
     {
-        public IEnumerable<MonthlyPaymentModel> GenerateRepaymentSchedule(decimal amount, int termInYears)
+        private readonly IInterestRateProvider _interestRateProvider;
+
+        public AnnuityLoanCalculatorService(IInterestRateProvider interestRateProvider)
+        {
+            _interestRateProvider = interestRateProvider;
+        }
+
+        public IEnumerable<MonthlyPaymentModel> GenerateRepaymentSchedule(LoanInputModel loanInput)
         {
             throw new NotImplementedException("Annuity loan calculation logic is not yet implemented.");
         }
     }
 }
+
+

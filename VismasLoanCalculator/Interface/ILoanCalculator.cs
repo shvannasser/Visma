@@ -4,7 +4,6 @@ namespace VismasLoanCalculator.Interface
 {
     public interface ILoanCalculator
     {
-        IEnumerable<MonthlyPaymentModel> GenerateRepaymentSchedule(decimal amount, int termInYears);
+        IEnumerable<MonthlyPaymentModel> GenerateRepaymentSchedule(LoanInputModel loanInput);
     }
-
 }

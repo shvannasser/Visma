@@ -5,19 +5,26 @@ namespace VismasLoanCalculator.Services
 {
     public class SerialLoanCalculatorService : ILoanCalculator
     {
+        private readonly IInterestRateProvider _interestRateProvider;
 
-        decimal annualInterestRate = 3.5m;
-        public IEnumerable<MonthlyPaymentModel> GenerateRepaymentSchedule(decimal amount, int termInYears)
+        public SerialLoanCalculatorService(IInterestRateProvider interestRateProvider)
         {
+            _interestRateProvider = interestRateProvider;
+        }
+
+        public IEnumerable<MonthlyPaymentModel> GenerateRepaymentSchedule(LoanInputModel loanInput)
+        {
+            decimal annualInterestRate = _interestRateProvider.GetInterestRate(loanInput.LoanCategory);
             var monthlyInterestRate = annualInterestRate / 12 / 100;
-            var totalNumberOfPayments = termInYears * 12;
-            var principalPayment = amount / totalNumberOfPayments;
+            var totalNumberOfPayments = loanInput.TermInYears * 12;
+            var principalPayment = loanInput.Amount / totalNumberOfPayments;
+            decimal remainingAmount = loanInput.Amount;
 
             for (int month = 1; month <= totalNumberOfPayments; month++)
             {
-                var interestPayment = amount * monthlyInterestRate;
+                var interestPayment = remainingAmount * monthlyInterestRate;
                 var totalPayment = principalPayment + interestPayment;
-                amount -= principalPayment;
+                remainingAmount -= principalPayment;
 
                 yield return new MonthlyPaymentModel
                 {
@@ -30,3 +37,4 @@ namespace VismasLoanCalculator.Services
         }
     }
 }
+

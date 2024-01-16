@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-//@using VismasLoanCalculator.Data;
 using VismasLoanCalculator.Interface;
 using VismasLoanCalculator.Services;
+using VismasLoanCalculator.Factory;
 
 namespace VismasLoanCalculator
 {
@@ -15,7 +13,13 @@ namespace VismasLoanCalculator
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            builder.Services.AddScoped<ILoanCalculatorFactory, LoanCalculatorFactory>();
+
+
+            // Register the factory and other services with the DI container
+            builder.Services.AddSingleton<ILoanCalculatorFactory, LoanCalculatorFactory>();
+            builder.Services.AddTransient<SerialLoanCalculatorService>();
+            builder.Services.AddTransient<AnnuityLoanCalculatorService>();
+            builder.Services.AddSingleton<IInterestRateProvider, InterestRateProvider>();
 
 
 

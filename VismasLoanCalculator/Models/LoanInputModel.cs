@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using VismasLoanCalculator.Enums;
 
 namespace VismasLoanCalculator.Models
 {
@@ -11,6 +12,8 @@ namespace VismasLoanCalculator.Models
         [Required]
         [Range(1, 40, ErrorMessage = "Term must be between 1 and 40 years")]
         public int TermInYears { get; set; }
+
+        public LoanCategory LoanCategory { get; set; }
 
         public string LoanType { get; set; } = "Serial";
     }

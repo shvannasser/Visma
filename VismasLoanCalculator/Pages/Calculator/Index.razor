@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using System.ComponentModel.DataAnnotations;
+@using VismasLoanCalculator.Enums;
 @using VismasLoanCalculator.Interface
 @using VismasLoanCalculator.Models
 @inject NavigationManager NavigationManager
@@ -19,6 +20,16 @@
     <EditForm Model="@loanInputModel" OnValidSubmit="HandleValidSubmit">
         <DataAnnotationsValidator />
         <ValidationSummary />
+
+        <div class="form-group">
+            <label for="loanCategory">Loan Category:</label>
+            <select @bind="@loanInputModel.LoanCategory" class="form-control">
+                @foreach (var category in Enum.GetValues(typeof(LoanCategory)))
+                {
+                    <option value="@category.ToString()">@category</option>
+                }
+            </select>
+        </div>
 
         <div class="form-group">
             <label for="loanType">Type of Loan:</label>
@@ -42,34 +53,38 @@
     </EditForm>
 }
 
-@if (MonthlyPayment != null)
+@if (MonthlyPayment != null && MonthlyPayment.Any())
 {
-    <div class="d-flex justify-content-between align-items-center schedule-header">
-        <h2>Repayment Schedule</h2>
-        <button class="btn btn-primary" @onclick="ResetForm">Change Values</button>
-    </div>
+    <div>
+        <div class="d-flex justify-content-between align-items-center schedule-header">
+            <h2>Repayment Schedule</h2>
+            <button class="btn btn-primary" @onclick="ResetForm">Change Values</button>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Month</th>
-                <th>Principal Payment</th>
-                <th>Interest Payment</th>
-                <th>Total Payment</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var payment in MonthlyPayment)
-            {
+        </div>
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@payment.Month</td>
-                    <td>@payment.PrincipalPayment.ToString("N2")</td>
-                    <td>@payment.InterestPayment.ToString("N2")</td>
-                    <td>@payment.TotalPayment.ToString("N2")</td>
+                    <th>Month</th>
+                    <th>Principal Payment</th>
+                    <th>Interest Payment</th>
+                    <th>Total Payment</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var payment in MonthlyPayment)
+                {
+                    <tr>
+                        <td>@payment.Month</td>
+                        <td>
+                            @payment.PrincipalPayment.ToString("N2")
+                        </td>
+                        <td>@payment.InterestPayment.ToString("N2")</td>
+                        <td>@payment.TotalPayment.ToString("N2")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 
 @code {
@@ -80,18 +95,28 @@
 
     private void HandleValidSubmit()
     {
-        if (loanInputModel.LoanType == "Annuity")
+        ErrorMessage = null;
+
+        if (loanInputModel.LoanType == "Annuity" || loanInputModel.LoanCategory == LoanCategory.Car)
         {
-            ErrorMessage = "Annuity loan calculation logic is not yet implemented.";
+            ErrorMessage = "The selected loan type or category is not yet implemented.";
             MonthlyPayment = null;
             scheduleGenerated = false;
         }
         else
         {
-            ErrorMessage = null;
-            ILoanCalculator loanCalculator = loanCalculatorFactory.Create(loanInputModel.LoanType);
-            MonthlyPayment = loanCalculator.GenerateRepaymentSchedule(loanInputModel.Amount, loanInputModel.TermInYears);
-            scheduleGenerated = MonthlyPayment != null && MonthlyPayment.Any();
+            try
+            {
+                ILoanCalculator loanCalculator = loanCalculatorFactory.Create(loanInputModel.LoanCategory, loanInputModel.LoanType);
+                MonthlyPayment = loanCalculator.GenerateRepaymentSchedule(loanInputModel);
+                scheduleGenerated = MonthlyPayment != null && MonthlyPayment.Any();
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"An error occurred while calculating the loan: {ex.Message}";
+                MonthlyPayment = null;
+                scheduleGenerated = false;
+            }
         }
         StateHasChanged();
     }
