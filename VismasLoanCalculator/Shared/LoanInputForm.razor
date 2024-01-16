@@ -1,4 +1,8 @@
-﻿@using VismasLoanCalculator.Models;
+﻿
+
+<!--
+
+@using VismasLoanCalculator.Models;
 @using VismasLoanCalculator.Interface;
 @inject ILoanCalculatorFactory loanCalculatorFactory;
 
@@ -31,34 +35,40 @@
 {
     <LoanRepaymentSchedule MonthlyPayments="MonthlyPayment" />
 }
+-->
+
+
 
 @code {
-    private LoanInputModel loanInputModel = new LoanInputModel();
-    public IEnumerable<MonthlyPaymentModel> MonthlyPayment { get; set; }
-    public string ErrorMessage { get; set; }
+/*     private LoanInputModel loanInputModel = new LoanInputModel();
+        public IEnumerable<MonthlyPaymentModel> MonthlyPayment { get; set; }
+        public string ErrorMessage { get; set; }
 
-    private void HandleValidSubmit()
-    {
-        if (loanInputModel.LoanType == "Annuity")
-        {
-            ErrorMessage = "Annuity loan calculation logic is not yet implemented.";
+        private void HandleValidSubmit()
+            {
+            if (loanInputModel.LoanType == "Annuity")
+                {
+                ErrorMessage = "Annuity loan calculation logic is not yet implemented.";
+                MonthlyPayment = null;
+            }
+            else
+                {
+                ErrorMessage = null;
+                ILoanCalculator loanCalculator = loanCalculatorFactory.Create(loanInputModel.LoanType);
+                MonthlyPayment = loanCalculator.GenerateRepaymentSchedule(loanInputModel.Amount, loanInputModel.TermInYears);
+            }
+
+            StateHasChanged();
+        }
+
+        private void ResetForm()
+            {
+            loanInputModel = new LoanInputModel();
             MonthlyPayment = null;
-        }
-        else
-        {
             ErrorMessage = null;
-            ILoanCalculator loanCalculator = loanCalculatorFactory.Create(loanInputModel.LoanType);
-            MonthlyPayment = loanCalculator.GenerateRepaymentSchedule(loanInputModel.Amount, loanInputModel.TermInYears);
-        }
-
-        StateHasChanged();
     }
-
-    private void ResetForm()
-    {
-        loanInputModel = new LoanInputModel();
-        MonthlyPayment = null;
-        ErrorMessage = null;
-    }
+    */
 }
+
+
 

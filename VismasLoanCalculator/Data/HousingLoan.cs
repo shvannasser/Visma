@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+
+/*
+using System;
 using System.Collections.Generic;
 using VismasLoanCalculator.Interface;
 using VismasLoanCalculator.Models;
@@ -46,3 +49,4 @@ namespace VismasLoanCalculator.Data
 
 
 }
+*/

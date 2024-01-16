@@ -1,4 +1,7 @@
-﻿using VismasLoanCalculator.Interface;
+﻿
+/*
+
+using VismasLoanCalculator.Interface;
 using VismasLoanCalculator.Models;
 
 namespace VismasLoanCalculator.Data
@@ -19,3 +22,6 @@ namespace VismasLoanCalculator.Data
     }
 
 }
+
+
+*/

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using VismasLoanCalculator.Data;
+//@using VismasLoanCalculator.Data;
 using VismasLoanCalculator.Interface;
 using VismasLoanCalculator.Services;
 
