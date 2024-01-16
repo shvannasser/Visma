@@ -11,7 +11,7 @@ namespace VismasLoanCalculator.Models
         public decimal Amount { get; set; }
 
         [Required]
-        [Range(1, 100, ErrorMessage = "Term must be between 1 and 100 years")]
+        [Range(1, 40, ErrorMessage = "Term must be between 1 and 40 years")]
         public int TermInYears { get; set; }
 
         public string LoanType { get; set; } = "Serial";
