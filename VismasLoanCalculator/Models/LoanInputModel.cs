@@ -4,8 +4,6 @@ namespace VismasLoanCalculator.Models
 {
     public class LoanInputModel
     {
-
-
         [Required]
         [Range(1, double.MaxValue, ErrorMessage = "Amount must be greater than 0")]
         public decimal Amount { get; set; }
@@ -15,7 +13,5 @@ namespace VismasLoanCalculator.Models
         public int TermInYears { get; set; }
 
         public string LoanType { get; set; } = "Serial";
-
-
     }
 }

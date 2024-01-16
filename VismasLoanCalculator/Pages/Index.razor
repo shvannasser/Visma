@@ -31,12 +31,10 @@
             <label for="amount">Loan Amount:</label>
             <InputNumber id="amount" class="form-control" @bind-Value="@loanInputModel.Amount" />
         </div>
-
         <div class="form-group">
             <label for="term">Loan Term (Years):</label>
             <InputNumber id="term" class="form-control" @bind-Value="@loanInputModel.TermInYears" />
         </div>
-
         <button type="submit" class="btn btn-primary button-spacing">Calculate</button>
     </EditForm>
 }
@@ -47,7 +45,6 @@
         <h2>Repayment Schedule</h2>
         <button class="btn btn-secondary" @onclick="ResetForm">Change Values</button>
     </div>
-
     <table class="table">
         <thead>
             <tr>
@@ -92,11 +89,8 @@
             MonthlyPayment = loanCalculator.GenerateRepaymentSchedule(loanInputModel.Amount, loanInputModel.TermInYears);
             scheduleGenerated = MonthlyPayment != null && MonthlyPayment.Any();
         }
-
-
         StateHasChanged();
     }
-
     private void ResetForm()
     {
         loanInputModel = new LoanInputModel();

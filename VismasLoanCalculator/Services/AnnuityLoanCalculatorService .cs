@@ -10,5 +10,4 @@ namespace VismasLoanCalculator.Services
             throw new NotImplementedException("Annuity loan calculation logic is not yet implemented.");
         }
     }
-
 }
