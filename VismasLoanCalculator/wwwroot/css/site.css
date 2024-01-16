@@ -1,5 +1,13 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+.navbar-dark {
+    background-color: #e30613;
+}
+
+.navbar-brand img {
+    height: 5rem;
+    width: auto;
+}
 
 .schedule-header {
     margin-bottom: 2rem;

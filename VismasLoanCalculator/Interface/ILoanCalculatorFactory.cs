@@ -6,7 +6,6 @@ namespace VismasLoanCalculator.Interface
     {
         ILoanCalculator Create(string loanType);
     }
-
     public class LoanCalculatorFactory : ILoanCalculatorFactory
     {
         public ILoanCalculator Create(string loanType)

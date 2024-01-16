@@ -1,6 +1,5 @@
 ﻿@page "/"
 @using System.ComponentModel.DataAnnotations;
-
 @using VismasLoanCalculator.Interface
 @using VismasLoanCalculator.Models
 @inject NavigationManager NavigationManager
@@ -20,6 +19,7 @@
     <EditForm Model="@loanInputModel" OnValidSubmit="HandleValidSubmit">
         <DataAnnotationsValidator />
         <ValidationSummary />
+
         <div class="form-group">
             <label for="loanType">Type of Loan:</label>
             <select @bind="@loanInputModel.LoanType" class="form-control">
@@ -27,14 +27,17 @@
                 <option value="Annuity">Annuity Loan</option>
             </select>
         </div>
+
         <div class="form-group">
             <label for="amount">Loan Amount:</label>
             <InputNumber id="amount" class="form-control" @bind-Value="@loanInputModel.Amount" />
         </div>
+
         <div class="form-group">
             <label for="term">Loan Term (Years):</label>
             <InputNumber id="term" class="form-control" @bind-Value="@loanInputModel.TermInYears" />
         </div>
+
         <button type="submit" class="btn btn-primary button-spacing">Calculate</button>
     </EditForm>
 }
@@ -43,8 +46,9 @@
 {
     <div class="d-flex justify-content-between align-items-center schedule-header">
         <h2>Repayment Schedule</h2>
-        <button class="btn btn-secondary" @onclick="ResetForm">Change Values</button>
+        <button class="btn btn-primary" @onclick="ResetForm">Change Values</button>
     </div>
+
     <table class="table">
         <thead>
             <tr>
